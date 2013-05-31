@@ -1,12 +1,12 @@
 %define		pkgname	th-lift
 Summary:	Derive Template Haskell's Lift class for datatypes
 Name:		ghc-%{pkgname}
-Version:	0.5.4
+Version:	0.5.5
 Release:	1
 License:	GPL v2/BSD
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/%{pkgname}/%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	67e8714d6cad0dfae57576f21c76497c
+# Source0-md5:	1389f438093e3d09b75649d1e8bd4cde
 URL:		http://hackage.haskell.org/package/th-lift/
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	rpmbuild(macros) >= 1.608
@@ -56,8 +56,9 @@ install -d $RPM_BUILD_ROOT%{_libdir}/%{ghcdir}/package.conf.d
 runhaskell Setup.hs copy --destdir=$RPM_BUILD_ROOT
 
 # work around automatic haddock docs installation
-rm -rf %{name}-%{version}-doc
+%{__rm} -rf %{name}-%{version}-doc
 cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 runhaskell Setup.hs register \
 	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
