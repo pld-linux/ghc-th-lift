@@ -28,7 +28,7 @@ BuildRequires:	ghc-template-haskell-prof < 2.10
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
-%requires_releq	ghc
+%requires_eq	ghc
 Requires:	ghc-base >= 3
 Requires:	ghc-base < 5
 Requires:	ghc-template-haskell >= 2.4
