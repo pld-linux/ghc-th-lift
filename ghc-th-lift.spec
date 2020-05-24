@@ -6,33 +6,33 @@
 Summary:	Derive Template Haskell's Lift class for datatypes
 Summary(pl.UTF-8):	Wywodzenie klasy Lift z Template Haskella dla typów danych
 Name:		ghc-%{pkgname}
-Version:	0.6
+Version:	0.8.1
 Release:	1
 License:	GPL v2 or BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/th-lift
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	01da599a0961d684620f2ddf43f0560e
+# Source0-md5:	fe5e2a759afd735dcb072cf9db0db8f6
 URL:		http://hackage.haskell.org/package/th-lift
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-base < 5
-BuildRequires:	ghc-template-haskell >= 2.4
-BuildRequires:	ghc-template-haskell < 2.10
+BuildRequires:	ghc-ghc-prim
+BuildRequires:	ghc-template-haskell >= 2.5
+BuildRequires:	ghc-th-abstraction >= 0.2.3
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-base-prof < 5
+BuildRequires:	ghc-ghc-prim-prof
 BuildRequires:	ghc-template-haskell-prof >= 2.4
-BuildRequires:	ghc-template-haskell-prof < 2.10
+BuildRequires:	ghc-th-abstraction-prof >= 0.2.3
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
 Requires:	ghc-base >= 3
-Requires:	ghc-base < 5
+Requires:	ghc-ghc-prim
 Requires:	ghc-template-haskell >= 2.4
-Requires:	ghc-template-haskell < 2.10
+Requires:	ghc-th-abstraction >= 0.2.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -53,9 +53,9 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC.
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 3
-Requires:	ghc-base-prof < 5
+Requires:	ghc-ghc-prim-prof
 Requires:	ghc-template-haskell-prof >= 2.4
-Requires:	ghc-template-haskell-prof < 2.10
+Requires:	ghc-th-abstraction-prof >= 0.2.3
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when GHC's
@@ -104,17 +104,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc BSD3 Changelog %{name}-%{version}-doc/*
+%doc BSD3 CHANGELOG.md %{name}-%{version}-doc/html
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSth-lift-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Haskell
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Haskell/TH
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Haskell/TH/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Haskell/TH/*.dyn_hi
 
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSth-lift-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Haskell/TH/*.p_hi
