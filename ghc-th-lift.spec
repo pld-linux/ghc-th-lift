@@ -7,7 +7,7 @@ Summary:	Derive Template Haskell's Lift class for datatypes
 Summary(pl.UTF-8):	Wywodzenie klasy Lift z Template Haskella dla typów danych
 Name:		ghc-%{pkgname}
 Version:	0.8.1
-Release:	1
+Release:	2
 License:	GPL v2 or BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/th-lift
